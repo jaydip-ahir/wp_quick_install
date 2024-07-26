@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Download the wp_quick_install.sh script
-curl -o /usr/local/bin/wp_quick_install https://raw.githubusercontent.com/jaydipahir/wp_quick_install/main/wp_quick_install.sh
+curl -o /usr/local/bin/wp_quick_install https://raw.githubusercontent.com/jaydip-ahir/wp_quick_install/master/wpinstall.sh
 
 # Make the script executable
 chmod +x /usr/local/bin/wp_quick_install
