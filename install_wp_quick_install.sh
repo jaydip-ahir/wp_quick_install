@@ -1,6 +1,6 @@
 #!/bin/bash
-$ sudo snap remove curl
-$ sudo apt install curl
+sudo snap remove curl
+sudo apt install curl
 # Make the script executable
 chmod +x /usr/local/bin/
 
