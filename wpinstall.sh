@@ -589,7 +589,7 @@ MEDIACSSFILE="/* Your media css start */"
 # assets/css/custom-style.css
 SETTINGSJSFILE="// Your custom js start"
 
-mkdir -p "wp-content/themes/$TEXT_DOMAIN" && cd "wp-content/themes/$TEXT_DOMAIN"
+mkdir -p $TEXT_DOMAIN && cd $TEXT_DOMAIN
 mkdir assets assets/css assets/js template-parts inc page-templates
 check_command
 
