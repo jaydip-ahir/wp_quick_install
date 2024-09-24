@@ -723,7 +723,8 @@ run_action() {
     ;;
 
     "Setup WordPress with Custom Theme")
-        setup_wordpress        
+        setup_wordpress      
+	cd wp-content/themes
         install_custom_theme
     ;;
 
