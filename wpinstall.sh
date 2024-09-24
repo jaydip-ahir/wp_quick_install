@@ -617,18 +617,35 @@ echo "$SETTINGSJSFILE" > assets/js/settings.js
 
 }
 
+# Function for all required fields
+prompt_required() {
+    local prompt_message=$1
+    local var_name=$2
+    local input_value
+
+    while true; do
+        read -p "$prompt_message: " input_value
+        if [ -n "$input_value" ]; then
+            eval $var_name=\$input_value
+            break
+        else
+            echo "This field is required. Please enter a value."
+        fi
+    done
+}
+
 # Function to Setup WordPress
 setup_wordpress() {
 
     echo "====== Enter WordPress Details ======"
 
     # Get Details
-    prompt_required -p "Enter Project Name: " PROJECT_NAME
-    prompt_required -p "Enter Database Name: " DATABASE_NAME
-    prompt_required -p "Enter admin user name: " ADMIN_USER
-    prompt_required -p "Enter admin password: " ADMIN_PASSWORD
-    prompt_required -p "Enter admin email: " ADMIN_EMAIL
-    prompt_required -p "Enter site title: " SITE_TITLE
+    prompt_required "Enter Project Name" PROJECT_NAME
+    prompt_required "Enter Database Name" DATABASE_NAME
+    prompt_required "Enter admin user name" ADMIN_USER
+    prompt_required "Enter admin password" ADMIN_PASSWORD
+    prompt_required "Enter admin email" ADMIN_EMAIL
+    prompt_required "Enter site title" SITE_TITLE
 
     # Make Project Folder
     mkdir "$PROJECT_NAME"
@@ -667,36 +684,19 @@ setup_wordpress() {
 
 }
 
-# Function for all required fields
-prompt_required() {
-    local prompt_message=$1
-    local var_name=$2
-    local input_value
-
-    while true; do
-        read -p "$prompt_message: " input_value
-        if [ -n "$input_value" ]; then
-            eval $var_name=\$input_value
-            break
-        else
-            echo "This field is required. Please enter a value."
-        fi
-    done
-}
-
 # Function to Install Custom Theme
 install_custom_theme() {
 
     # Get Details
     echo "====== Enter Theme Details ======"
 
-	prompt_required "Enter Theme Name" THEME_NAME
-    read -p "Enter Theme URI: " THEME_URI
-    read -p "Enter Author Name: " AUTHOR_NAME
-    read -p "Enter Author URI: " AUTHOR_URI
-    read -p "Enter Description: " DESCRIPTION
-    read -p "Enter Version: " VERSION
-    prompt_required "Enter Text Domain: " TEXT_DOMAIN
+	prompt_required "Enter Theme Name:" THEME_NAME
+    read -p "Enter Theme URI:" THEME_URI
+    read -p "Enter Author Name:" AUTHOR_NAME
+    read -p "Enter Author URI:" AUTHOR_URI
+    read -p "Enter Description:" DESCRIPTION
+    read -p "Enter Version:" VERSION
+    prompt_required "Enter Text Domain:" TEXT_DOMAIN
 
     create_theme_files "$THEME_NAME" "$THEME_URI" "$AUTHOR_NAME" "$AUTHOR_URI" "$DESCRIPTION" "$VERSION" "$TEXT_DOMAIN"
     check_command
