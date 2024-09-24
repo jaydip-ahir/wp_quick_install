@@ -690,13 +690,13 @@ install_custom_theme() {
     # Get Details
     echo "====== Enter Theme Details ======"
 
-	prompt_required "Enter Theme Name:" THEME_NAME
+    prompt_required "Enter Theme Name" THEME_NAME
     read -p "Enter Theme URI:" THEME_URI
     read -p "Enter Author Name:" AUTHOR_NAME
     read -p "Enter Author URI:" AUTHOR_URI
     read -p "Enter Description:" DESCRIPTION
     read -p "Enter Version:" VERSION
-    prompt_required "Enter Text Domain:" TEXT_DOMAIN
+    prompt_required "Enter Text Domain" TEXT_DOMAIN
 
     create_theme_files "$THEME_NAME" "$THEME_URI" "$AUTHOR_NAME" "$AUTHOR_URI" "$DESCRIPTION" "$VERSION" "$TEXT_DOMAIN"
     check_command
