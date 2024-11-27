@@ -196,10 +196,8 @@ get_header(); ?>
 	if ( have_posts() ) :
 		while ( have_posts() ) :
 			the_post();
-			get_template_part( 'template-parts/content', get_post_format() );
+			the_content();
 		endwhile;
-	else :
-		get_template_part( 'template-parts/content', 'none' );
 	endif;
 	?>
 </div><!-- #content -->
@@ -221,7 +219,7 @@ get_header(); ?>
 	<?php
 	while ( have_posts() ) :
 		the_post();
-		get_template_part( 'template-parts/content', 'page' );
+		the_content();
 
 		if ( comments_open() || get_comments_number() ) :
 			comments_template();
@@ -247,7 +245,7 @@ get_header(); ?>
 	<?php
 	while ( have_posts() ) :
 		the_post();
-		get_template_part( 'template-parts/content', 'page' );
+		the_content();
 
 		if ( comments_open() || get_comments_number() ) :
 			comments_template();
@@ -274,10 +272,8 @@ get_header(); ?>
 	if ( have_posts() ) :
 		while ( have_posts() ) :
 			the_post();
-			get_template_part( 'template-parts/content', get_post_format() );
+			the_content();
 		endwhile;
-	else :
-		get_template_part( 'template-parts/content', 'none' );
 	endif;
 	?>
 </div><!-- #content -->
@@ -404,13 +400,10 @@ get_header(); ?>
 			<?php
 			while ( have_posts() ) :
 				the_post();
-				get_template_part( 'template-parts/content', get_post_format() );
+				the_content();
 			endwhile;
 
 			the_posts_navigation();
-
-		else :
-			get_template_part( 'template-parts/content', 'none' );
 
 		endif;
 		?>
@@ -511,75 +504,6 @@ get_header(); ?>
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>"
 
-# template-parts/content.php
-CONTENTFILE="<?php
-/**
- * Template part for displaying posts
- *
- * @package  $TEXT_DOMAIN
- */
-
-?>
-
-<article id=\"post-<?php the_ID(); ?>\" <?php post_class(); ?>>
-	<header class=\"entry-header\">
-		<?php
-		if ( is_singular() ) :
-			the_title( '<h1 class=\"entry-title\">', '</h1>' );
-		else :
-			the_title( '<h2 class=\"entry-title\"><a href=\"' . esc_url( get_permalink() ) . '\" rel=\"bookmark\">', '</a></h2>' );
-		endif;
-		?>
-	</header><!-- .entry-header -->
-
-	<div class=\"entry-content\">
-		<?php
-		the_content(
-			sprintf(
-				wp_kses(
-					/* translators: %s: Name of current post. Only visible to screen readers */
-					__( 'Continue reading<span class=\"screen-reader-text\">\"%s\"</span>', '$TEXT_DOMAIN' ),
-					array(
-						'span' => array(
-							'class' => array(),
-						),
-					)
-				),
-				get_the_title()
-			)
-		);
-
-		wp_link_pages(
-			array(
-				'before' => '<div class=\"page-links\">' . esc_html__( 'Pages:', '$TEXT_DOMAIN' ),
-				'after'  => '</div>',
-			)
-		);
-		?>
-	</div><!-- .entry-content -->
-</article><!-- #post-<?php the_ID(); ?> -->"
-
-# template-parts/content-none.php
-CONTENTNONEFILE="<?php
-/**
- * Template part for displaying a message that posts cannot be found
- *
- * @package  $TEXT_DOMAIN
- */
-
-?>
-
-<section class=\"no-results not-found\">
-	<header class=\"page-header\">
-		<h1 class=\"page-title\"><?php esc_html_e( 'Nothing Found', 'my-custom-theme' ); ?></h1>
-	</header><!-- .page-header -->
-
-	<div class=\"page-content\">
-		<p><?php esc_html_e( 'It seems we can’t find what you’re looking for. Perhaps searching can help.', 'my-custom-theme' ); ?></p>
-		<?php get_search_form(); ?>
-	</div><!-- .page-content -->
-</section><!-- .no-results -->"
-
 # assets/js/settings.js
 CUSTOMSTYLECSSFILE="/* Your custom css start */"
 
@@ -590,7 +514,7 @@ MEDIACSSFILE="/* Your media css start */"
 SETTINGSJSFILE="// Your custom js start"
 
 mkdir -p $TEXT_DOMAIN && cd $TEXT_DOMAIN
-mkdir assets assets/css assets/js template-parts inc page-templates
+mkdir assets assets/css assets/js inc page-templates
 check_command
 
 # Create theme files
@@ -609,8 +533,6 @@ echo "$SEARCHFILE" > search.php
 echo "$SEARCHFORMFILE" > search-form.php
 echo "$ENQUEUEFUNCTIONFILE" > inc/enqueue-function.php
 echo "$CUSTOMTEMPLATEFILE" > page-templates/custom-template.php
-echo "$CONTENTFILE" > template-parts/content.php
-echo "$CONTENTNONEFILE" > template-parts/content-none.php
 echo "$CUSTOMSTYLECSSFILE" > assets/css/custom-style.css
 echo "$MEDIACSSFILE" > assets/css/media.css
 echo "$SETTINGSJSFILE" > assets/js/settings.js
